@@ -1,0 +1,543 @@
+	\documentclass[12pt]{article}
+	\pagenumbering{gobble}
+	\usepackage{amsmath}
+	\usepackage{graphicx}
+	\graphicspath{ {c:/users/nicho_000/desktop/miniproject/} }
+	\addtolength{\oddsidemargin}{-.775in}
+	\addtolength{\evensidemargin}{-.5in}
+	\addtolength{\textwidth}{1.75in}
+	\addtolength{\topmargin}{-.875in}
+	\addtolength{\textheight}{1.75in}
+	
+	\usepackage{graphicx}
+	\graphicspath{ {c:/users/nicho_000/pictures/screenshots/} }
+
+
+	\begin{document}
+	
+	
+	\begin{titlepage}
+        \centering
+		{\scshape\LARGE University of Waterloo \par}
+		\vspace{1cm}
+		{\scshape\Large AMATH 251\par}
+		\vspace{1.5cm}
+		{\huge\bfseries Curve of Pursuit \par}
+		\vspace{2cm}
+		{\Large\itshape Nick Mitchell\\Oscar Yeung\par}
+		\vfill
+		\par
+		\textsc{K.G. Lamb}
+		\vfill
+		{\large November 5, 2015 \par}
+	\end{titlepage}
+	
+	\section{Introduction}
+	
+	The question of the curve of pursuit is introduced by Nagle, Saff, and Snider in their textbook \textquotedblleft Fundamentals of Differential Equations and Boundary Value Problems, Sixth Edition\textquotedblright :
+	
+	\begin{quotation}
+\textquotedblleft An interesting geometric model arises when one tries to determine the path of a pursuer chasing its prey. This path is called a \textbf{curve of pursuit}. These problems were analyzed using methods of calculus circa 1730 (more than two centuries after Leonardo da Vinci had considered them). The simplest problem is to find the curve along which a vessel moves in pursuing another vessel that flees along a straight line, assuming the speeds of the two vessels are constant. \textquotedblright \\
+\\ 
+\indent (Nagle et al., 2011)
+	\end{quotation}
+
+	
+	\section{The Setup}
+	
+    \indent Consider the following image (Nagle et al., 2011): \\
+	\includegraphics[width=120mm]{boats}
+	\\
+
+	We will then assume the following: \\
+	\indent \indent -vessel A is pursuing vessel B\\
+	\indent \indent -vessel A travels at constant speed $\alpha$, and vessel B travels at constant speed $\beta$, such that $\alpha > \beta$\\
+	\indent \indent -at time $t=0$, vessel A begins at the origin, and vessel B begins at the point $(1,0)$\\
+	\indent \indent -vessel A moves along the path $y(x)$, and vessel B moves along the line x=1\\
+	\indent \indent -after t hours, vessel A is at the point $P=(x,y)$, and vessel B is at the point $Q=(1,\beta t)$\\
+	\indent Our goal, then, is to describe $y$ as a function of $x$.\\
+	
+	\section{The Tangent Line to the Curve of Pursuit}
+	
+	\indent \indent We know that vessel A is pursuing vessel B. This implies that at time $t$, vessel A is heading directly at vessel B. In mathematical terms, this means that the tangent line to the curve of pursuit at point P must pass through point Q. 
+	\\
+	
+	We know the equation of the line is $y=mx+b$, where $m=\frac{dy}{dx}$, and $b$ is the y-intercept.
+	\\
+	
+	Consider the coordinate transform $x^{*}=x-1$ , that is, the translation of the origin one unit in the positive x direction. We now have vessel B moving along the y-axis. As previously stated, vessel A is always pointing in the direction of vessel B which is now at position $(0,\beta t)$. Since vessel B is always on the new y-axis, the new y-intercept of our tangent line is always the y-value of vessel B's position: $\beta t$.
+	\\
+	
+	Now, our equation of the line in our translated coordinates becomes:
+	\\
+	\\
+	$y=\dfrac{dy}{dx^*}x^{*}+\beta t $ \hspace{1cm} , subtract $\beta t$ from both sides to get
+	\\
+	\\
+	$y -\beta t=\dfrac{dy}{dx^*}x^{*}$ \hspace{1cm} , divide through by $x^{*}$\\
+	\\
+	$\dfrac{y -\beta t}{x^{*}}=\dfrac{dy}{dx^*}$ \hspace{1.3cm} , but $x^{*}=x-1$ by our coordinate transformation, so we get:\\
+	\\
+	$\dfrac{dy}{dx^*} = \dfrac{y -\beta t}{x-1}$ \hspace{1.3cm} , a simple chain rule gives us $\dfrac{dy}{dx^*}=\dfrac{dy}{dx}\dfrac{dx}{dx^*}$, and $\dfrac{dx}{dx^*}=\dfrac{d}{dx^*}[x^*-1]=1$
+	\\
+	\\
+	\indent Then it follows that $\dfrac{dy}{dx^*}=\dfrac{dy}{dx}$, and thus $\dfrac{dy}{dx} = \dfrac{y -\beta t}{x-1}$
+	\\
+	\\
+	\indent We now have a differential equation for y(x), our desired function. 
+	\\
+	
+	\section{Arc Length of the Curve of Pursuit}
+	
+	\indent\indent On a brief \textit{tangent} from our previous discussion, we should consider the arc length of the curve of pursuit given by the formula $S=\int^P_O ds$ (Weisstein, 2015b), S being the arc length, O and P being the origin and final position respectively, and ds being the magnitude of the line element.
+	\\
+	\\
+	\indent In our case the line element is defined in Cartesian coordinates as $dx\cdot\hat{x} + dy\cdot\hat{y}$ (Weisstein, 2015b). So the magnitude of the line element is thus: $ds=\sqrt{(dx)^{2}+(dy)^{2}}$
+	\\
+	\\
+	\indent Our arc length formula then becomes:
+	\\
+	$S=${\Large $\int^P_O$} $\sqrt{(dx)^{2}+(dy)^{2}}$ \hspace{1cm} , multiply the integrand by $1=\dfrac{dx}{dx}$
+	\\
+	\\
+	$S=${\Large $\int^P_O$} $ \dfrac{dx}{dx}\sqrt{(dx)^{2}+(dy)^{2}}$ \hspace{0.5cm} , $\dfrac{dx}{dx}=\dfrac{dx}{\sqrt{(dx)^{2}}}$ \hspace{2mm} so distribute the denominator into the radical
+	\\
+	\\
+	$S=${\Large $\int^P_O$} $ dx\sqrt{ \hspace{1mm}\dfrac{(dx)^{2}}{(dx)^{2}} + \dfrac{(dy)^{2}}{(dx)^{2}}}$\hspace{0.45cm} , but $\dfrac{(dx)^{2}}{(dx)^{2}}=1$, and $\dfrac{(dy)^{2}}{(dx)^{2}}=(y^{\prime}(x))^{2}$, so we get  
+	\\
+	\\
+	$S=${\Large $\int^P_O$} $ \sqrt{ 1 + (y^{\prime}(x))^{2}}dx$
+	\\
+	\\
+	\indent However, notice that our integrand is now only a function of $x$. This implies that the only relevant information in our points $O=(0,0)$ and $P=(x,y)$ are the $x$-coordinates. Thus, the equivalent integral is:
+	\\
+	\\
+	$S=${\Large $\int^x_0$} $ \sqrt{ 1 + (y^{\prime}(u))^{2}}du$ \hspace{1cm}, where $y$ is now a function of the dummy variable $u$, replacing $x$.
+	\\
+	\\
+	\indent Finally, notice that S, the arc length, is equivalent to the distance traveled by vessel A. Since we know vessel A travels at a constant velocity $\alpha$, then this distance is equal to $\alpha t$. So we can conclude: 
+	\\
+	\\
+	$\alpha t=${\Large $\int^x_0$} $ \sqrt{ 1 + (y^{\prime}(u))^{2}}du$
+	
+	\section{A Differential Equation for \textquoteleft y(x)\textquoteright}
+	
+	\indent \indent The last two sections produced two different equations involving y, x, and t:
+	\\
+	\\
+	$\dfrac{dy}{dx} = \dfrac{y -\beta t}{x-1}$ \hspace{1cm} and \hspace{1cm} $\alpha t=${\Large $\int^x_0$} $ \sqrt{ 1 + (y^{\prime}(u))^{2}}du$
+	\\
+	\\
+	\indent Notice that both equations have an explicit $t$ dependence. We will take advantage of this, and make a substitution. Solving for $t$ in the first equation: 
+	\\
+	\\
+	$\dfrac{dy}{dx} = \dfrac{y -\beta t}{x-1}$ \hspace{2.66cm}, multiply through by $(x-1)$
+	\\
+	\\
+	$(x-1)\frac{dy}{dx} = y -\beta t$\hspace{1.75cm}, subtract $y$ from both sides
+	\\
+	\\
+	$-y + (x-1)\frac{dy}{dx} =-\beta t$\hspace{1.1cm}, multiply through by $-1$
+	\\
+	\\
+	$y - (x-1)\frac{dy}{dx} =\beta t$\hspace{1.75cm}, finally, divide both sides by $\beta$ to get:
+	\\
+	\\
+	$\dfrac{y - (x-1)\frac{dy}{dx}}{\beta}=t$
+	\\
+	\\
+	Now we can substitute this expression for $t$ into the second equation, $\alpha t=${\Large $\int^x_0$} $ \sqrt{ 1 + (y^{\prime}(u))^{2}}du$, to get:
+	\\
+	\\
+	$\alpha \cdot \dfrac{y - (x-1)\frac{dy}{dx}}{\beta}=${\Large $\int^x_0$} $ \sqrt{ 1 + (y^{\prime}(u))^{2}}du$ \hspace{1cm}, which can can divide through by $\alpha$ to conclude:
+	\\
+	\\
+	$\dfrac{y - (x-1)\frac{dy}{dx}}{\beta}=\frac{1}{\alpha}${\Large $\int^x_0$} $ \sqrt{ 1 + (y^{\prime}(u))^{2}}du$
+	\clearpage
+	
+	\section{Eliminating the Integral}
+	
+	\indent \indent Though the last equation found only depends on $y$ and $x$, it is in the form of an integral equation. Since differential equations are much easier to work with, we should take the derivative of both sides with respect to $x$ to eliminate the integral. So consider:
+	\\
+	\\
+	$\dfrac{d}{dx}[\dfrac{y - (x-1)\frac{dy}{dx}}{\beta}]=\dfrac{d}{dx}[\dfrac{1}{\alpha}${\Large $\int^x_0$} $ \sqrt{ 1 + (y^{\prime}(u))^{2}}du]$
+	\\
+	\\
+	\indent Let us first consider the left hand side of the equation. We can first move the constant $\frac{1}{\beta}$ out of the derivative to get:
+	\\
+	\\
+	$\frac{1}{\beta}\cdot\dfrac{d}{dx}[y - (x-1)\frac{dy}{dx}]$ 
+	\\
+	\\
+	\indent Now by the linearity of the differential operator we can distribute $\frac{d}{dx}$ to get:
+	\\
+	\\
+	$\frac{1}{\beta}\cdot(\dfrac{d}{dx}[y] - \dfrac{d}{dx}[(x-1)\frac{dy}{dx}])$\\
+	\\
+	\indent The first term of the derivative can be simplified to $\frac{dy}{dx}$. Simultaneously we will expand the second term of the derivative through product rule:
+	\\
+	\\
+	$\frac{1}{\beta}\cdot(\frac{dy}{dx} - \dfrac{d}{dx}[(x-1)]\cdot\frac{dy}{dx} -(x-1)\cdot\dfrac{d}{dx}[\frac{dy}{dx}] )$
+	\\
+	\\
+	\indent Notice that each term now involves $\frac{dy}{dx}$. To simplify we can set $\frac{dy}{dx}$ equal to $w$:
+	\\
+	\\
+	$\frac{1}{\beta}\cdot(w - \dfrac{d}{dx}[(x-1)]\cdot w -(x-1)\cdot\dfrac{d}{dx}[w] )$
+	\\
+	\\
+	\indent Now, in the second term we can again distribute the differential operator and the third term can be written as $\frac{dw}{dx}$:
+	\\
+	\\
+	$\frac{1}{\beta}\cdot(w - [(\dfrac{d}{dx}[x]-\dfrac{d}{dx}[1])]\cdot w -(x-1)\cdot\frac{dw}{dx} )$
+	\\
+	\\
+	\indent But $\dfrac{d}{dx}[x]=1$, and  $\dfrac{d}{dx}[1]=0$, so our equation can be simplified to:
+	\\
+	\\
+	$\frac{1}{\beta}\cdot(w - [1-0]\cdot w -(x-1)\cdot\frac{dw}{dx} )$
+	\\
+	\\
+	\indent And since $[1-0]\cdot w=1\cdot w=w$, we get:
+	\\
+	\\
+	$\frac{1}{\beta}\cdot(w - w -(x-1)\cdot\frac{dw}{dx} )$
+	\\
+	\\
+	\indent Finally, since $w-w=0$, we get:
+	\\
+	\\
+	$\frac{-1}{\beta}\cdot(x-1)\cdot\frac{dw}{dx}$
+	\\
+	\\
+	\indent Using our new left hand side of our original equation, our equation now reads:
+	\\
+	\\
+	$\frac{-1}{\beta}\cdot(x-1)\cdot\frac{dw}{dx}=\dfrac{d}{dx}[\frac{1}{\alpha}${\Large $\int^x_0$} $ \sqrt{ 1 + (y^{\prime}(u))^{2}}du]$
+	\\
+	\\
+	\indent So we may now evaluate the right hand side, where we first pull the constant $\frac{1}{\alpha}$ out of the derivative:
+	\\
+	\\
+	$\frac{1}{\alpha}\cdot\dfrac{d}{dx}[${\Large $\int^x_0$} $ \sqrt{ 1 + (y^{\prime}(u))^{2}}du]$
+	\\
+	\\
+	\indent By the Fundamental Theorem of Calculus, this simplifies to:
+	\\
+	\\
+	$\frac{1}{\alpha}\cdot\sqrt{ 1 + (y^{\prime}(x))^{2}}$
+	\\
+	\\
+	\indent But $y^{\prime}(x)=\frac{dy}{dx}$, which we defined as $w$, so we can substitute to get:
+	\\
+	\\
+	$\frac{1}{\alpha}\cdot\sqrt{ 1 + w^{2}}$\hspace{0.7cm}, and using our new right hand side of our original equation, our equation now reads:
+	\\
+	\\
+	$\frac{-1}{\beta}\cdot(x-1)\cdot\frac{dw}{dx}=\frac{1}{\alpha}\cdot\sqrt{ 1 + w^{2}}$
+	\\
+	\\ 
+	\indent By multiplying through by $-\beta$, we can conclude:
+	\\
+	\\
+	$(x-1)\cdot\frac{dw}{dx}=-\beta/\alpha\cdot\sqrt{ 1 + w^{2}}$\hspace{1cm}, where $w=\frac{dy}{dx}$
+	
+	\section{Solving for \textquoteleft w\textquoteright}
+	
+	\indent The equation we found in the above section is actually a separable differential equation for w and can be rewritten:
+	\\
+	\\
+	$(x-1)\cdot\frac{dw}{dx}=-\beta/\alpha\cdot\sqrt{ 1 + w^{2}}$\hspace{1cm}, multiply through by $\frac{1}{(x-1)} $ and $\frac{1}{\sqrt{ 1 + w^{2}}} $ :
+	\\
+	\\
+	$\dfrac{dw}{dx}\cdot \dfrac{1}{\sqrt{ 1 + w^{2}}}=-\dfrac{\beta}{\alpha}\cdot\dfrac{1}{(x-1)}$
+	\\
+	\\
+	\indent We will now treat $\frac{dw}{dx}$ as if it were the quotient of two separate numbers; $dw$ and $dx$. This process is justified very well by John Taylor in his textbook \textquotedblleft Classical Mechanics\textquotedblright, using $dv$ and $dt$ in place of $dy$ and $dx$ respectively, as follows:
+	
+	\clearpage
+	
+	\begin{quotation}
+		\textquotedblleft As you are certainly aware, this cavalier proceeding is not strictly correct. Nevertheless, it can be justified in two ways. First, in the theory of \textit{differentials}, it is in fact true that \textit{dv} and \textit{dt} are defined as separate numbers (differentials), such that their quotient is the derivative \textit{dv/dt}. Fortunately, it is quite unnecessary to know about this theory. As physicists we know that \textit{dv/dt} is the limit of \textit{$\Delta$v/$\Delta$t}, as both \textit{$\Delta$v} and \textit{$\Delta$t} become small, and I shall take the view that \textit{dv} is just the shorthand for \textit{$\Delta$v} (and likewise \textit{dt} for \textit{$\Delta$t}), \textit{with the understanding that it has been taken small enough that the quotient dv/dt is within my desired accuracy of the true derivative}. With this understanding, [having] \textit{dv} on one side [of the equation] and \textit{dt} on the other, makes perfectly good sense. \textquotedblright \\
+		\\ 
+		\indent (Taylor, 2015)
+	\end{quotation}
+	
+	\indent Thus we can multiply our equation by $dx$ to get:
+	\\
+	\\
+	$\dfrac{dw}{\sqrt{ 1 + w^{2}}}=-\dfrac{\beta}{\alpha}\cdot\dfrac{dx}{(x-1)}$\hspace{1cm}, then we can integrate both sides from time $t=0$ to time $t=t$: 
+	\\
+	\\
+	\\
+	{\Large $\int^{t=t}_{t=0}$}$\dfrac{dw}{\sqrt{ 1 +  w^{2}}}=-\dfrac{\beta}{\alpha}${\Large $\int^{t=t}_{t=0}$}$\cdot\dfrac{dx}{(x-1)}$ 
+	\\
+	\\
+	\indent We know that $w$ and $x$ are functions of $t$, thus $x=x(t)$ and $w=w(t)$. At time $t=0$: $w(0)=0$ and $x(0)=0$. This is to say that vessel A begins at the origin, (0,0), with no initial velocity (remembering that $w=dy/dx$). At time $t=t$: $w(t)=w$ and $x(t)=x$. To integrate \textit{to} our desired variables, we must introduce the dummy integration variables $w^{\prime}$ and $x^{\prime}$ respectively. Our integrals are then equivalent to:
+	\\
+	\\
+	{\Large $\int^w_0$} $\dfrac{dw^{\prime}}{\sqrt{ 1 + w^{\prime 2}}}=-\dfrac{\beta}{\alpha}${\Large $\int^x_0$} $\cdot\dfrac{dx^{\prime}}{(x^{\prime}-1)}$ 
+	\\
+	\\
+	\indent Notice that the integrand on the left hand side is the derivative of $arcsinh(w^{\prime})$ (Weisstein, 2015a) and that the integrand on the right hand side is obviously the derivative of $ln|x^{\prime}-1|$. Thus we can evaluate the equation as such:
+	\\
+	\\
+	$\bigg[arcsinh(w^{\prime})\bigg]^w_0=-\dfrac{\beta}{\alpha}\cdot \bigg[ln|x^{\prime}-1| \bigg]^x_0$ \hspace{1cm}, evaluating the bounds: 
+	\\
+	\\
+	$arcsinh(w)-arcsinh(0)=-\beta/\alpha\cdot [ln|x-1|-ln|0-1|]$ 
+	\\
+	\\ 
+	\indent We can then evaluate $arcsinh(0)=0$, and $ln|0-1|=ln|1|=0$ to get:
+	\\
+	\\
+	$arcsinh(w)=-\beta/\alpha\cdot [ln|x-1|]$ 
+	\\
+	\\
+	\indent However, notice that in our setup of the question we claimed that vessel A starts at the origin, (0,0), and approaches vessel B which is bound to the line $x=1$. So our choice of coordinates bounds $x$ between $0$ and $1$. This implies that $x-1\leq1$ and furthermore that $|x-1|$ can be simplified to $-(x-1)=(1-x)$. Our equation then becomes:
+	\\
+	\\
+	$arcsinh(w)=-\beta/\alpha\cdot [ln(1-x)]$ 
+	\\
+	\\
+	\clearpage
+	\indent To obtain an explicit form for $w=w(x)$, we take advantage of the fact that $arcsinh(w)$ is the inverse function of $sinh(w)$, thus $sinh(arcsinh(w))=w$. So applying the function $sinh(\cdot)$ to both sides yields:
+	\\
+	\\
+	$w=sinh(-\beta/\alpha\cdot [ln(1-x)])$
+	\\
+	\\
+	\indent We now have an explicit $w(x)$, but we can simplify the expression further by using the definition of $sinh(z)=\frac{1}{2}\cdot[e^z - e^{-z}]$ as such:
+	\\
+	\\
+	$w=\frac{1}{2}\cdot[e^{-\beta/\alpha\cdot ln(1-x)} - e^{\beta/\alpha\cdot ln(1-x)}]$ \hspace{1.15cm}, apply the logarithmic property $a\cdot ln(z)=ln(z^a)$ :
+	\\
+	\\
+	$w=\frac{1}{2}\cdot[e^{ln((1-x)^{-\beta/\alpha})} - e^{ln((1-x)^{\beta/\alpha})}]$ \hspace{1cm}, apply the logarithmic property $e^{ln(z)}=z$ :
+	\\
+	\\
+	$w=\frac{1}{2}\cdot[(1-x)^{-\beta/\alpha}-(1-x)^{\beta/\alpha}]$ \hspace{1.3cm}, finally, we know $w=\frac{dy}{dx}$, so:
+	\\
+	\\
+	$\frac{dy}{dx}=w=\frac{1}{2}\cdot[(1-x)^{-\beta/\alpha}-(1-x)^{\beta/\alpha}]$
+	\\
+	
+	
+	\section{Solving for \textquoteleft y\textquoteright}
+	
+	\indent \indent Upon analysing the exact expression for $w(x)$ that we obtained in the previous section, one can see that we have the separable first order differential equation for $y(x)$: 
+	\\
+	\\
+	$\frac{dy}{dx}=\frac{1}{2}\cdot[(1-x)^{-\beta/\alpha}-(1-x)^{\beta/\alpha}]$
+	\\
+	\\
+	\indent By once again applying John Taylor's view on differentials, we can multiply both sides of the equation by $dx$ to get:
+	\\
+	\\
+	$dy=\frac{1}{2}\cdot[(1-x)^{-\beta/\alpha}-(1-x)^{\beta/\alpha}]dx$ \hspace{0.3cm}, now we can integrate both sides from time $t=0$ to $t=t$ :
+	\\
+	\\
+	{\Large $\int^{t=t}_{t=0}$}$dy=\frac{1}{2}\cdot${\Large $\int^{t=t}_{t=0}$}$[(1-x)^{-\beta/\alpha}-(1-x)^{\beta/\alpha}]dx$
+	\\
+	\\
+	\indent Once again, we know that $y$ and $x$ are functions of $t$, so $x=x(t)$ and $y=y(t)$. At time $t=0$: $y(0)=0$ and $x(0)=0$. This is, again, to say that vessel A begins at the origin, (0,0). At time $t=t$: $y(t)=y$ and $x(t)=x$. We are again integrating \textit{to} our desired variables so we introduce the dummy integration variables $y^{\prime}$ and $x^{\prime}$ respectively. By also multiplying through by 2 for clarity, our integrals are then equivalent to:
+	\\
+	\\
+	$2${\Large $\int^y_0$}$dy^{\prime}=${\Large $\int^x_0$}$[(1-x^{\prime})^{-\beta/\alpha}-(1-x^{\prime})^{\beta/\alpha}]dx^{\prime}$
+	\\
+	\\
+	\indent The integrand on the left hand side is $1$ so it evaluates to $y^{\prime}$. We must now use the assumption from section 2 that $\alpha$ is explicitly greater than $\beta$. This means that $\alpha/\beta\neq\pm1$; implying that the integrand on the right hand side is a polynomial. As such, we can apply basic polynomial integration techniques to get:
+	\\
+	\\
+	$2\bigg[y^{\prime}\bigg]^y_0=\dfrac{\Big[(1-x^{\prime})^{1-\beta/\alpha}\Big]^x_0}{-(1-\beta/\alpha)}+\dfrac{\Big[(1-x^{\prime})^{1+\beta/\alpha}\Big]^x_0}{(1+\beta/\alpha)}$ \hspace{1cm}, evaluating the bounds:
+	\\
+	\\
+	$2[y-0]=\dfrac{(1-x)^{1-\beta/\alpha}-(1-0)^{1-\beta/\alpha}}{-(1-\beta/\alpha)}+\dfrac{(1-x)^{1+\beta/\alpha}-(1-0)^{1+\beta/\alpha}}{(1+\beta/\alpha)}$
+	\\
+	\\
+	\indent Removing the addition of zeros and applying the basic property of $1^{z}=1, \forall z \in \Re$ we get:
+	\\
+	\\
+	$2y=\dfrac{(1-x)^{1-\beta/\alpha}-1}{-(1-\beta/\alpha)}+\dfrac{(1-x)^{1+\beta/\alpha}-1}{(1+\beta/\alpha)}$ \hspace{4.15cm}, separate the numerators to get:
+	\\
+	\\
+	\\
+	$2y=\dfrac{(1-x)^{1-\beta/\alpha}}{-(1-\beta/\alpha)}+\dfrac{-1}{-(1-\beta/\alpha)}+\dfrac{(1-x)^{1+\beta/\alpha}}{(1+\beta/\alpha)}+\dfrac{-1}{(1+\beta/\alpha)}$ \hspace{0.4cm} , rearrange and simplify negatives:
+	\\
+	\\
+	\\
+	$2y=\bigg[ \dfrac{(1-x)^{1+\beta/\alpha}}{(1+\beta/\alpha)}-\dfrac{(1-x)^{1-\beta/\alpha}}{(1-\beta/\alpha)} \bigg] +\dfrac{1}{(1-\beta/\alpha)}-\dfrac{1}{(1+\beta/\alpha)}$
+	\\
+	\\
+	\\
+	\indent The constant term simplifies to $\dfrac{2\alpha\beta}{\alpha^2-\beta^2}$, as shown in the appendix. Substituting constants and dividing both sides by 2 yields our explicit equation for $y(x)$:
+	\\
+	\\
+	$y(x)=\dfrac{1}{2}\bigg[ \dfrac{(1-x)^{1+\beta/\alpha}}{(1+\beta/\alpha)}-\dfrac{(1-x)^{1-\beta/\alpha}}{(1-\beta/\alpha)} \bigg] +\dfrac{\alpha\beta}{\alpha^2-\beta^2}$
+	
+	\section{Point of Intersection}
+	
+	\indent \indent Given our equation for $y(x)$ from the previous section, we can now find the point of intersection between vessel A's path and vessel B's path. We first remember that vessel B's path is bounded to the line $x=1$, so when the two vessels meet the $x$-coordinate must be $1$. We can then calculate $y(1)$ to find the point of intersection:
+	\\
+	\\
+	$y(1)=\dfrac{1}{2}\bigg[ \dfrac{(1-1)^{1+\beta/\alpha}}{(1+\beta/\alpha)}-\dfrac{(1-1)^{1-\beta/\alpha}}{(1-\beta/\alpha)} \bigg] +\dfrac{\alpha\beta}{\alpha^2-\beta^2}$ \hspace{1cm} , simplify the numerators:
+	\\
+	\\
+	\\
+	$y(1)=\dfrac{1}{2}\bigg[ \dfrac{0^{1+\beta/\alpha}}{(1+\beta/\alpha)}-\dfrac{0^{1-\beta/\alpha}}{(1-\beta/\alpha)} \bigg] +\dfrac{\alpha\beta}{\alpha^2-\beta^2}$ 
+	\\
+	\\
+	\indent As we assumed before, since $\beta/\alpha\neq\pm1$, then $1\pm\beta/\alpha\neq0$, and we can conclude that $0^{1\pm\beta/\alpha}=0$. Then both fractions in the bracket go to zero and the whole left term resultantly becomes zero, leaving only:
+	\\
+	\\
+	$y(1)=\dfrac{\alpha\beta}{\alpha^2-\beta^2}$
+	\\
+	\\
+	Therefore, the point of intersection is $(1,\frac{\alpha\beta}{\alpha^2-\beta^2})$
+	
+	\section{Alternate Scenario}
+	
+	\indent \indent We will now change our initial assumption that $\alpha>\beta$ and consider the case when $\alpha=\beta$. We must then go back to when we first applied this assumption in the integral from section 8: 
+	\\
+	\\
+	$2${\Large $\int^y_0$}$dy^{\prime}=${\Large $\int^x_0$}$[(1-x^{\prime})^{-\beta/\alpha}-(1-x^{\prime})^{\beta/\alpha}]dx^{\prime}$ \hspace{1cm} , Now apply $\alpha=\beta$ and hence $\beta/\alpha=1$:
+	\\
+	\\
+	$2${\Large $\int^y_0$}$dy^{\prime}=${\Large $\int^x_0$}$[(1-x^{\prime})^{-1}-1+x^{\prime})]dx^{\prime}$
+	\\
+	\\
+	\indent The integral on the left hand side is unchanged so we can evaluate it to be $2y$ as found before. The right hand side, however, must be treated differently. We will distribute the integral as such:
+	\\
+	\\
+	$2y=${\Large $\int^x_0$}$(1-x^{\prime})^{-1}dx^{\prime}-${\Large $\int^x_0$}$1dx^{\prime}+${\Large $\int^x_0$}$x^{\prime}dx^{\prime}$
+	\\
+	\\
+	\indent The first integrand is the derivative of $-ln|1-x^{\prime}|$, the second integrand is the derivative of $x^{\prime}$, and the third integrand is the derivative of $\frac{1}{2}x^{\prime 2}$. We can then evaluate the integrals:
+	\\
+	\\
+	$2y=-\bigg[ln|1-x^{\prime}|\bigg]^x_0-\bigg[x^{\prime}\bigg]^x_0+\bigg[\frac{1}{2}x^{\prime 2}\bigg]^x_0$ \hspace{3.8cm} , evaluate the bounds:
+	\\
+	\\
+	$2y=-\bigg[ln|1-x|-ln|1-0|\bigg]-\bigg[x-0\bigg]+\frac{1}{2}\bigg[x^{2}-0^{2}\bigg]$ \hspace{1cm} , simplify, noting that $ln|1-0|=0$:
+	\\
+	\\
+	$2y=-ln|1-x|-x+\frac{1}{2}x^{2}$
+	\\
+	\\
+	\indent As previously shown, since $x$ is bounded between $0$ and $1$, $ln|1-x|=ln(x-1)$. Also, note that $\frac{1}{2}x^2-x=\frac{1}{2}[x^2-2x]=\frac{1}{2}[(x-1)^2-1]$. We can then rewrite our equation as:
+	\\
+	\\
+	$2y=\frac{1}{2}[(x-1)^2-1]-ln(1-x)$\hspace{1cm}, and finally, we conclude that:
+	\\
+	\\
+	$y=\frac{1}{2}\Big\{\frac{1}{2}[(x-1)^2-1]-ln(1-x)\Big\}$
+	\\
+	\\
+	\indent With our new equation for $y(x)$ we notice that as $x$ tends to $1$, $-ln(1-x)$ tends to $\infty$ and resultantly $y(x)$ tends to $\infty$. This shows that $y(x)$ never realistically reaches $1$, and thus can never reach vessel B.  
+	
+	\clearpage
+	
+	\section{Appendix}
+	
+	{\normalsize \textbf{Simplification of a Constant [Section 8]}}
+	\\
+	
+	We have the equation: $2y=\bigg[ \dfrac{(1-x)^{1+\beta/\alpha}}{(1+\beta/\alpha)}-\dfrac{(1-x)^{1-\beta/\alpha}}{(1-\beta/\alpha)} \bigg] +\dfrac{1}{(1-\beta/\alpha)}-\dfrac{1}{(1+\beta/\alpha)}$
+	\\
+	\\
+	\\
+	\indent Now we note that $\dfrac{1}{1-\beta/\alpha}=\dfrac{1}{\frac{\alpha-\beta}{\alpha}}=\dfrac{\alpha}{\alpha-\beta}$  and similarly that $\dfrac{1}{1+\beta/\alpha}=\dfrac{1}{\frac{\alpha+\beta}{\alpha}}=\dfrac{\alpha}{\alpha+\beta}$
+	\\
+	\\
+	\\
+	\indent Thus our constant term $\dfrac{1}{1-\beta/\alpha} - \dfrac{1}{1+\beta/\alpha}$ can be rewritten as $\dfrac{\alpha}{\alpha-\beta}-\dfrac{\alpha}{\alpha+\beta}$
+	\\
+	\\
+	\\
+	\indent We can simplify this further by multiplying the terms by $\dfrac{\alpha+\beta}{\alpha+\beta}$  and $\dfrac{\alpha-\beta}{\alpha-\beta}$  respectively:
+	\\
+	\\
+	$\dfrac{\alpha}{\alpha-\beta}\cdot\dfrac{\alpha+\beta}{\alpha+\beta} -\dfrac{\alpha}{\alpha+\beta}\cdot\dfrac{\alpha-\beta}{\alpha-\beta}$ \hspace{1cm} , multiply the fractions to get:
+	\\
+	\\
+	\\
+	$\dfrac{\alpha(\alpha+\beta)}{(\alpha-\beta)(\alpha+\beta)} -\dfrac{\alpha(\alpha-\beta)}{(\alpha+\beta)(\alpha-\beta)}$
+	\\
+	\\
+	\\
+	\indent Now both terms of our constant have the same denominator which is a difference of squares and can thus be simplified to $\alpha^2-\beta^2$. Our constant then becomes:
+	\\
+	\\
+	\\
+	$\dfrac{\alpha(\alpha+\beta)-\alpha(\alpha-\beta)}{\alpha^2-\beta^2}$ \hspace{1cm} , distribute the terms in the numerator:
+	\\
+	\\
+	\\
+	$\dfrac{\alpha^2 +\alpha\beta-\alpha^2 +\alpha\beta}{\alpha^2-\beta^2}$ \hspace{1.3cm} , simplify the terms in the numerator and the constant becomes:
+	\\
+	\\
+	\\
+	$\dfrac{2\alpha\beta}{\alpha^2-\beta^2}$  \hspace{3.4cm} , which we can now substitute into our equation for $y(x)$
+	\\
+	\\
+	
+	\clearpage
+	
+	\section{Works Cited}
+	
+	\begin{quote}
+		Nagle, R. K., Saff, E. B., \& Snider, A. D. (2011). Mathematical Models and Numerical Methods Involving First-Order Equations. In \textit{Fundamentals of Differential Equations and 
+		Boundary Value Problems, Sixth Edition} (pp. 145–146). Greg Tobin.
+	\\
+	\\
+		Taylor, J. R. (205AD). Projectiles and Charged Particles. In \textit{Classical Mechanics} (p. 58). University Science Books.
+	\\
+	\\
+		Weisstein, E. W. (2015). “Inverse Hyperbolic Sine” From MathWorld. Retrieved from http://mathworld.wolfram.com/InverseHyperbolicSine.html
+	\\
+	\\
+		Weisstein, E. W. (2015). “Line Element” From MathWorld. Retrieved from 
+		\\http://mathworld.wolfram.com/LineElement.html
+	\end{quote}
+	
+
+	
+
+	
+	\end{document}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

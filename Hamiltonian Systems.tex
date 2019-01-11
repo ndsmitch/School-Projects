@@ -1,0 +1,396 @@
+	\documentclass[12pt]{article}
+	\pagenumbering{gobble}
+	\usepackage{amsmath}
+	\usepackage{graphicx}
+	\usepackage{listings}
+	\graphicspath{ {c:/users/nicho_000/desktop/miniproject/} }
+	\addtolength{\oddsidemargin}{-.675in}
+	\addtolength{\evensidemargin}{-.875in}
+	\addtolength{\textwidth}{1.45in}
+	\addtolength{\topmargin}{-.675in}
+	\addtolength{\textheight}{1.75in}
+
+
+
+	\begin{document}
+	
+	
+	\begin{titlepage}
+        \centering
+		{\scshape\LARGE University of Waterloo \par}
+		\vspace{1cm}
+		{\scshape\Large AMATH 251\par}
+		\vspace{1.5cm}
+		{\huge\bfseries Hamiltonian Systems \par}
+		\vspace{2cm}
+		{\Large\itshape Nick Mitchell\\Daniel Pepper\par}
+		\vfill
+		\par
+		\textsc{K.G. Lamb}
+		\vfill
+		{\large December 4, 2015 \par}
+	\end{titlepage}
+	
+	\section{Hamilton's Formulation of Mechanics}
+	
+	\indent \indent Sir William Rowan Hamilton (1805-1865) was an Irish mathematical physicist who proposed a new formulation of mechanics. This new formulation was to serve as an alternative to both Newtonian and Lagrangian mechanics. His formulation is based on three mathematical manipulations (Nagle et al.):
+	\\
+	\\
+	I) The force $F(t,y,y^\prime)$ depends only on $y$, and has an anti derivative $-V(y)$, 
+	\\ \indent ie. $F=F(y)=-dV/dy$
+	\\
+	\\
+	II) The velocity variable $y^\prime$ is replaced by momentum, $p=my^\prime$
+	\\
+	\\
+	III) The Hamiltonian of the system is defined as:
+	\\ 
+	\indent $H=H(y,p)=\frac{p^2}{2m} + V(y)$
+	
+	\section{Newton's Second Law}
+	
+	\indent \indent Newton's Second Law states $ F=my^{\prime\prime}$, where $F$ is the net force acting on an object, $m$ is the mass of the object, and $y^{\prime\prime}$ is the acceleration of the object, the second time derivative of the position, $y$. Prime notation ( $^{\prime}$ ) denotes a the time derivative, $\frac{d}{dt}$. 
+	\\
+	\\
+	\indent However this second order differential equation can be expressed as a system of two first order differential equations by Newton's Second Law:
+	\begin{align*}
+	F&=my^{\prime\prime} &\text{re-write}
+	\\
+	F&=[my^\prime]^\prime &\text{substitute for the momentum, $p=my^\prime$}
+	\\
+	F&=p^\prime
+	\end{align*}
+	\indent Then we have the equivalent system of two equations: 
+	\begin{align*}
+	p&=my^\prime
+	\\
+	F&=p^\prime
+	\end{align*}
+	 
+	\clearpage
+	
+	\section{Hamilton's Equations}
+
+	\indent \indent To define Hamilton's equations, we will build on our system of differential equations defined above, and the Hamiltonian,  $H=\frac{p^2}{2m}+2V(y)$
+	\\
+	\\
+	\indent Consider the partial derivative of the Hamiltonian, with respect to p:
+	\begin{align*}
+	\frac{\partial H}{\partial p}&=\frac{\partial}{\partial p}\bigg[\frac{p^2}{2m}+V(y)\bigg] &\text{ the derivative is linear and can be distributed}
+	\\
+	\frac{\partial H}{\partial p}&=\frac{\partial}{\partial p}\bigg[\frac{p^2}{2m}\bigg]+\frac{\partial}{\partial p}\bigg[V(y)\bigg] &\text{V(y) does not depend on p}
+	\\
+	\frac{\partial H}{\partial p}&=\frac{2p}{2m}+0 &\text{ simplify}
+	\\
+	\frac{\partial H}{\partial p}&=\frac{p}{m} &\text{  but $y^\prime=\frac{p}{m}$, from the previous section}
+	\\
+	\frac{\partial H}{\partial p}&=y^\prime
+	\end{align*}
+	
+	\indent Now consider the partial derivative of the Hamiltonian, with respect to y:
+	\begin{align*}
+	\frac{\partial H}{\partial y}&=\frac{\partial}{\partial y}\bigg[\frac{p^2}{2m}+V(y)\bigg] &\text{ the derivative is linear and can be distributed}
+	\\
+	\frac{\partial H}{\partial y}&=\frac{\partial}{\partial y}\bigg[\frac{p^2}{2m}\bigg]+\frac{\partial}{\partial y}\bigg[V(y)\bigg] &\text{$\frac{p^2}{2m}$ does not depend on y}
+	\\
+	\frac{\partial H}{\partial y}&=0+\frac{dV}{dy} &\text{ but $\frac{dV}{dy}=-F=-p^\prime$, from the previous sections}
+	\\
+	\frac{\partial H}{\partial y}&=-p^\prime
+	\end{align*}
+	\indent We now have a new system of differential equations, called to as Hamilton's equations:
+	\begin{align*}
+	\frac{dy}{dt}&=\frac{\partial H}{\partial p} 
+	\\
+	\frac{dp}{dt}&=-\frac{\partial H}{\partial y} 
+	\end{align*}
+	
+	\clearpage
+	
+	\section{Conservation of Energy}
+	
+	\indent \indent Using Hamilton's equations, we can obtain some interesting results for the Hamiltonian. Consider the total time derivative of the Hamiltonian, given by the chain rule:
+	\begin{align*}
+	\frac{d}{dt}H(y,p)&=\frac{\partial H}{\partial y}\frac{dy}{dt}+\frac{\partial H}{\partial p}\frac{dp}{dt} &\text{substitute Hamilton's equations}
+	\\
+	\frac{d}{dt}H(y,p)&=\frac{\partial H}{\partial y}\bigg[\frac{\partial H}{\partial p}\bigg]+\frac{\partial H}{\partial p}\bigg[-\frac{\partial H}{\partial y}\bigg] &\text{rearrage terms}
+	\\
+	\frac{d}{dt}H(y,p)&=\frac{\partial H}{\partial y}\frac{\partial H}{\partial p} - \frac{\partial H}{\partial y}\frac{\partial H}{\partial p} &\text{simplify}
+	\\
+	\frac{d}{dt}H(y,p)&=0
+	\end{align*}
+	\indent As such, the Hamiltonian remains constant along the solution curves. We can also note that the first term in the Hamiltonian is the kinetic energy of the system. Analogously, the second term is the potential energy, so the Hamiltonian is the total mechanical energy of the system. For conservative forces (that don't depend on time $t$ or velocity $y^\prime$) the Hamiltonian is conserved.
+	
+	\section{Mass-Spring Oscillator}
+	
+	\indent \indent For a mass-spring oscillator, the force is given by the equation $F=-ky$ where $k$ is the spring constant. The find the Hamiltonian of this system, we need to derive the potential energy from the force, using the assumption that $F=-dV/dy$:
+	\begin{align*}
+	F&=-\frac{dV}{dy} &\text{integrate both sides with respect to y}
+	\\
+	\int F dy &= \int -\frac{dV}{dy} dy &\text{apply fundamental theorem of calculus}
+	\\
+	\int F dy &= -V &\text{re-write}
+	\\
+	V&=-\int F dy &\text{substitute $F=-ky$}
+	\\
+	V&=-\int[-ky]dy &\text{simplify}
+	\\
+	V&=k\int y dy &\text{evaluate}
+	\\
+	V&=\frac{1}{2}ky^2 + constant
+	\end{align*}
+	\indent Then for the Hamiltonian $H=\frac{p^2}{2m}+V(y)$ , we get:
+	\begin{equation*}
+	H=\frac{p^2}{2m}+\frac{1}{2}ky^2 + constant
+	\end{equation*}
+	\indent Furthermore, for the phase plane trajectories given by $H(y,p)=constant$, we have the ellipses:
+	\begin{equation*}
+	\frac{p^2}{2m}+\frac{1}{2}ky^2=constant
+	\end{equation*}
+	
+	\section{Damping}
+	
+	\indent \indent When the damping force $-by^\prime$ is present, Hamilton's second equation must be changed to:
+	\begin{equation*}
+	\frac{dp}{dt}=-\frac{\partial H}{\partial y}-\frac{bp}{m}
+	\end{equation*}
+	\indent Since the Hamiltonian represents the total energy, which the damping drains, the Hamiltonian is no longer constant. To confirm that the Hamiltonian is in fact decreasing, consider the total derivative of the Hamiltonian, given by the chain rule:
+	\begin{align*}
+	\frac{d}{dt}H(y,p)&=\frac{\partial H}{\partial y}\frac{dy}{dt}+\frac{\partial H}{\partial p}\frac{dp}{dt} &\text{substitute Hamilton's equations}
+	\\
+	\frac{d}{dt}H(y,p)&=\frac{\partial H}{\partial y}\bigg[\frac{\partial H}{\partial p}\bigg]+\frac{\partial H}{\partial p}\bigg[-\frac{\partial H}{\partial y}-\frac{bp}{m}\bigg] &\text{rearrage terms}
+	\\
+	\frac{d}{dt}H(y,p)&=\frac{\partial H}{\partial y}\frac{\partial H}{\partial p} - \frac{\partial H}{\partial y}\frac{\partial H}{\partial p} - \frac{\partial H}{\partial p}\frac{bp}{m} &\text{simplify}
+	\\
+	\frac{d}{dt}H(y,p)&= - \frac{\partial H}{\partial p}\frac{bp}{m} &\text{substitute Hamilton's first equation}
+	\\
+	\frac{d}{dt}H(y,p)&= - \frac{dy}{dt}\frac{bp}{m} &\text{substitute $\frac{dy}{dt}=y^\prime=\frac{p}{m}$}
+	\\
+	\frac{d}{dt}H(y,p)&= - \frac{p}{m}\frac{bp}{m}
+	\end{align*}
+	\indent We then conclude that when damping is present (for $b>0$) the Hamiltonian decreases along trajectories:
+	\begin{equation*}
+	\frac{d}{dt}H(y,p)= - b\bigg(\frac{p}{m}\bigg)^2
+	\end{equation*}
+	
+	\clearpage
+	
+	\section{Mass-Spring System Revisited}
+	
+	\indent \indent The previous mass-spring system discussed has the spring force $F=-kx$. For a mass-spring system positioned vertically in a gravitational field, the effective force must be readjusted to $F=-kx+mg$ to accommodate for gravity. As such, to find the Hamiltonian we must re-evaluate $V(y)$. We may reuse the result our previous results and start with the relationship:
+	\begin{align*}
+	V&=-\int F dy &\text{substitute $F=-ky+mg$}
+	\\
+	V&=-\int[-ky+mg]dy &\text{use linearity}
+	\\
+	V&=\int[ky]-\int[mg]dy &\text{apply our previous result}
+	\\
+	V&=\frac{1}{2}ky^2-\int[mg]dy+constant &\text{evaluate}
+	\\
+	V&=\frac{1}{2}ky^2-mgy+constant
+	\end{align*}
+	\indent Thus the Hamiltonian is:
+	\begin{equation*}
+	H(y,p)=\frac{p^2}{2m}+\frac{1}{2}ky^2-mgy+constant
+	\end{equation*}
+	\indent And our phase plane trajectories given by $H=constant$ are given by:
+	\begin{equation*}
+	\frac{p^2}{2m}+\frac{1}{2}ky^2-mgy=constant
+	\end{equation*}
+	\indent Which are shown in the following figures (values used in appendix):
+	\begin{center}
+		\includegraphics[width=16cm]{f}
+	\end{center}
+	
+	\section{Duffing Spring System}
+	
+	\indent \indent We now consider the Duffing spring force, modeled by $F=-y-y^3$. Repeating the previous steps to find $V(y)$, we begin with: 
+	\begin{align*}
+	V&=-\int F dy &\text{substitute $F=-y-y^3$}
+	\\
+	V&=-\int[-y-y^3]dy &\text{evaluate}
+	\\
+	V&=\frac{y^2}{2}+\frac{y^4}{4} + constant
+	\end{align*}
+	\indent Thus the Hamiltonian is:
+	\begin{equation*}
+	H(y,p)=\frac{p^2}{2m}+\frac{y^2}{2}+\frac{y^4}{4} + constant
+	\end{equation*}
+	\indent And our phase plane trajectories given by $H=constant$ are given by:
+	\begin{equation*}
+	\frac{p^2}{2m}+\frac{y^2}{2}+\frac{y^4}{4} = constant
+	\end{equation*}
+	\indent Which are shown in the following figures (values used in appendix):
+	\begin{center}
+		\includegraphics[width=16cm]{g}
+	\end{center}
+	
+	\clearpage
+	
+	\section{Pendulum System}
+	
+	\indent \indent Hamiltonian systems can be extended to non Cartesian coordinates with relative ease. The pendulum system modeled by the force $F=-lmgsin\theta$ is a good example of this. Contrary to finding $V(y)$ though we will now try to find $V(\theta)$, similarly starting with the equation: 
+	\begin{align*}
+	V(\theta) &=-\int F(\theta) d\theta &\text{substitute $F=-lmgsin\theta$}
+	\\
+	V(\theta)&=-\int[-lmgsin\theta]d\theta &\text{evaluate}
+	\\
+	V(\theta)&=-lmgcos\theta + constant
+	\end{align*}
+	\indent  Note that the $l$ used above represents the length of the pendulum. To find the Hamiltonian, we must express the kinetic energy in polar coordinates. We start with the angular velocity equation in terms of the angular momentum: $p=ml^2\theta^\prime$. The kinetic energy being $\frac{1}{2}\times mass\times velocity$ is then expressed as $\frac{1}{2}m(l\theta^\prime)^2=\frac{p^2}{2ml^2}$ . The Hamiltonian is then given by $H=T(p)+V(\theta)$ :
+	\begin{equation*}
+	H(y,p)=\frac{p^2}{2ml^2}-lmgcos\theta + constant
+	\end{equation*}
+	\indent And our phase plane trajectories given by $H=constant$ are given by:
+	\begin{equation*}
+	\frac{p^2}{2ml^2}-lmgcos\theta = constant
+	\end{equation*}
+	\indent Which are shown in the following figures (values used in appendix):
+	\begin{center}
+		\includegraphics[width=16cm]{i}
+	\end{center}
+	
+	\clearpage
+	
+	\section{Coulomb Force System}
+	
+	\indent \indent An important force in electricity and magnetism, the Coulomb force is given by the equation $F=k/y^2$. The force is either \textit{attractive} for $k<0$ or \textit{repulsive} for $k>0$. Returning to regular Cartesian coordinates, we again attempt to find $V(y)$ beginning with the equation:
+	\begin{align*}
+	V&=-\int F dy &\text{substitute $F=\frac{k}{y^2}$}
+	\\
+	V&=-\int\bigg[\frac{k}{y^2}\bigg]dy &\text{evaluate}
+	\\
+	V&=\frac{k}{y} + constant
+	\end{align*}
+	\indent Thus the Hamiltonian is:
+	\begin{equation*}
+	H(y,p)=\frac{p^2}{2m}+\frac{k}{y} + constant
+	\end{equation*}
+	\indent And our phase plane trajectories given by $H=constant$ are given by:
+	\begin{equation*}
+	\frac{p^2}{2m}+\frac{k}{y} = constant
+	\end{equation*}
+	\indent Which are shown in the following figures (values used in appendix):
+	\begin{center}
+		\includegraphics[width=14cm]{h}
+		\includegraphics[width=14cm]{j}
+	\end{center}
+	
+	\indent The interesting concept of \textit{escape velocity} arises in the case of the attractive Coulomb force. As shown by the images above, solutions either tend to the line $p=0$ or $y=0$. In the case of solutions approaching $p=0$, we see that $y$ approaches infinity. Assuming no damping is present, the total mechanical energy of the system [the Hamiltonian] is conserved. We then consider the following limit:
+	\begin{align*}
+	\lim_{(p,y)\rightarrow(\infty,0)}H(p,y)&=\lim_{(p,y)\rightarrow(\infty,0)}\frac{p^2}{2m}+\frac{k}{y}&\text{distribute the limit}
+	\\
+	\lim_{(p,y)\rightarrow(\infty,0)}H(p,y)&=\lim_{p\rightarrow 0}\frac{p^2}{2m}+\lim_{y\rightarrow\infty}\frac{k}{y} &\text{evaluate}
+	\\
+	\lim_{(p,y)\rightarrow(\infty,0)}H(p,y)&=0
+	\end{align*}
+	\indent Since the Hamiltonian is conserved, we know that $H=0$ at all other points in time. We then have the equation:
+	\begin{align*}
+	H(p,y)&=0&\text{substitute for H}
+	\\
+	\frac{p^2}{2m}+\frac{k}{y}&=0&\text{$k<0$ for the attractive force}
+	\\
+	\frac{p^2}{2m}-\frac{|k|}{y}&=0&\text{rearrange}
+	\\
+	\frac{p^2}{2m}&=\frac{|k|}{y}&\text{substitute $p=my^\prime$}
+	\\
+	\frac{y^{\prime^2}}{2m}&=\frac{|k|}{y}&\text{rearrange}
+	\\
+	y^{\prime}&=\pm\sqrt{\frac{2m|k|}{y}}
+	\end{align*}
+	We can see from the graph that all trajectories with $p<0$ do not escape the force, as they tend to the line $y=0$. As such we can infer that $y^\prime>0$ and we take the positive root. The escape velocity is then given by the equation: 
+	\begin{align*}
+	y^{\prime}&=\sqrt{\frac{2m|k|}{y}}  \text{ \hspace{4mm},\hspace{4mm} $y>0$}
+	\end{align*}
+	
+	\clearpage
+	
+	\section{Appendix - Maple Source Code}
+	\begin{lstlisting}
+	restart;
+	with(DEtools);
+	f := -l*m*g*sin(theta(t));
+	k := -89.88; m := 10; l := 1; g := 9.81; b := 5;
+	sys := {diff(p(t), t) = f, 
+		diff(theta(t), t) = p(t)/(m*l^2)};
+	ivs := [[theta(0) = 8, p(0) = 0], 
+		[theta(0) = -1, p(0) = 0], 
+		[theta(0) = 3, p(0) = 0]];
+	DEplot(sys, [theta(t), p(t)], 
+		t = -100 .. 100, 
+		theta = -5 .. 10, 
+		p = -100 .. 100, 
+		ivs, stepsize = .1, 
+		linecolor = [blue, green, red], 
+		labelfont = ["HELVETICA", 15], 
+		title = "Pendulum (No Damping)");
+	sys2 := {diff(p(t), t) = f-b*p(t)/m, 
+		diff(theta(t), t) = p(t)/(m*l^2)};
+	DEplot(sys2, [theta(t), p(t)], 
+		t = -20 .. 20, 
+		theta = -5 .. 10, 
+		p = -100 .. 100, 
+		ivs, stepsize = .1, 
+		labelfont = ["HELVETICA", 15], 
+		linecolor = [blue, green, red], 
+		title = "Pendulum (With Damping)");
+	#(f) Used k = 49, m = 10, g = 9.81, b = 3,
+		#the initial values for the plots were 
+		#1. y(0) = y(0) = 1, p(0) = 0  , 
+		#2. y(0) = 5, p(0) = 0, 
+		#3. y(0) = 6, p(0) = 0
+	#(g) Used same initial conditions and damping 
+		#coefficient as part (f) (Above)
+	#(h) Used l = 1, m = 10, g = 9.81, b = 5,
+		#the initial values for the plots were  
+		#1. theta(0) = 8, p(0) = 0, 
+		#2. theta(0) = -1, p(0) = 0, 
+		#3. theta(0) = 3, p(0) = 0
+	#(i) Used k=89.88 and k = -89.88 , b = 1
+	#the initial values for the plots were 
+		#1. y(0) = 15, p(0) = 0   , 
+		#2. y(0) = 10, p(0) = 15, 
+		#3.y(0) = 30, p(0) = 0
+	
+	\end{lstlisting}
+	\clearpage
+	\section{References}
+	
+	Nagle, R. K., Saff, E. B., \& Snider, A. D. (2011). 
+		Introduction to Systems and Phase Plane 
+		\\ \indent Analysis. In \textit{Fundamentals of Differential Equations and 
+		Boundary Value Problems,}
+		\\ \indent \textit{ Sixth Edition} (pp. 313 - 315). Greg Tobin.	
+	
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
