@@ -1,0 +1,170 @@
+
+
+
+% 4b)
+
+
+
+function [s,maxterm,numterms] = powersin(x)
+%POWERSIN Power series for sin(x).
+% y = POWERSIN(x) tries to compute sin(x) from its power series.
+%
+% Copyright 2014 Cleve Mohler
+% Copyright 2014 The MathWorks, Inc.
+%
+% NEW ADDITIONS:
+% 	maxterm - records the largest term computed in the series
+% 	numterms - records the number of computed terms in the series
+
+s=0;
+t=x;
+
+% declare new variables:
+% maxterm starts at x, the first term in the series
+maxterm=x;
+% numterms starts at 1, counting only the first term in the series
+
+numterms=1;
+n=1;
+while t ~= 0;
+	s=s+t;
+	t=-x.^2/((n+1)*(n+2)).*t;
+	n=n+2;
+
+	% increment the number of terms by one for each additional iteration
+	numterms=numterms+1;
+	% compare current term t to maxterm
+	% replace maxterm with t if it is larger than maxterm
+	if t>maxterm;
+		maxterm=t;
+		end
+	end
+end
+
+
+
+% 4c)
+
+
+
+[s,maxterm,numterms]=powersin(pi/2)
+a =  1.0000
+b =  1.5708
+c =  12
+
+[s,maxterm,numterms]=powersin(11*pi/2)
+a = -1.0000
+b =    3.0665e+06
+c =  38
+
+[s,maxterm,numterms]=powersin(21*pi/2)
+a =  0.99987
+b =    1.4673e+13
+c =  61
+
+[s,maxterm,numterms]=powersin(31*pi/2)
+a = -5822.0
+b =    7.9890e+19
+c =  79
+
+
+
+% 5a)
+
+
+
+function [ dot_avg , loop_avg ] = timings (n, num_repeats)
+
+
+x = rand(n, 1);
+
+y = rand(n, 1);
+
+
+% maintain ticker and sum variables
+% count up ticker once per loop until it reached num_repeats
+% add resulting time to sum every loop
+dot_ticker = 0;
+dot_time_sum = 0;
+
+while dot_ticker < num_repeats;
+	% start time, perform dot product, record time 
+	tic;
+	dot(x,y);
+	dot_time_sum = dot_time_sum + toc;
+	dot_ticker = dot_ticker + 1;
+end;
+
+% maintain ticker and sum variables
+% count up ticker once per loop until it reached num_repeats
+% add resulting time to sum every loop
+loop_ticker = 0;
+loop_time_sum = 0;
+
+while loop_ticker < num_repeats;
+	% start time, perform loop operation, record time 
+	loop_sum = 0;
+	tic;
+	% iterate over length of vectors
+	% add the product of the vectors at each index to loop_sum
+	for i = 1:n;
+		loop_sum = loop_sum + (x(i)*y(i));
+	end;
+	loop_time_sum = loop_time_sum + toc;
+	loop_ticker = loop_ticker + 1;
+end;
+
+% divide total runtime sums by number of iterations to get average
+dot_avg = dot_time_sum ./ num_repeats;
+loop_avg = loop_time_sum ./ num_repeats;
+end
+
+
+
+% 5b)
+
+
+
+[dot_avg, loop_avg] = timings(1,100)
+dot_avg =    1.9758e-05
+loop_avg =    2.4419e-05
+
+[dot_avg, loop_avg] = timings(5,100)
+dot_avg =    1.9877e-05
+loop_avg =    6.8007e-05
+
+[dot_avg, loop_avg] = timings(10,100)
+dot_avg =    1.8084e-05
+loop_avg =    1.2184e-04
+
+[dot_avg, loop_avg] = timings(50,100)
+dot_avg =    1.8213e-05
+loop_avg =    5.7458e-04
+
+[dot_avg, loop_avg] = timings(100,100)
+dot_avg =    1.8985e-05
+loop_avg =  0.0015766
+
+[dot_avg, loop_avg] = timings(500,100)
+dot_avg =    2.0401e-05
+loop_avg =  0.0069198
+
+[dot_avg, loop_avg] = timings(1000,100)
+dot_avg =    1.9159e-05
+loop_avg =  0.013719
+
+[dot_avg, loop_avg] = timings(5000,100)
+dot_avg =    2.6355e-05
+loop_avg =  0.070837
+
+[dot_avg, loop_avg] = timings(10000,100)
+dot_avg =    3.3765e-05
+loop_avg =  0.14247
+
+[dot_avg, loop_avg] = timings(50000,100)
+dot_avg =    9.2316e-05
+loop_avg =  0.83168
+
+[dot_avg, loop_avg] = timings(100000,100)
+dot_avg =    1.6122e-04
+loop_avg =  1.6436

@@ -1,0 +1,129 @@
+function v=myTrapz(f, xmin, xmax)
+% This function approximates the integral 
+%     \int_{xmin}^{xmax} f(x) dx 
+%   using the trapezoidal rule
+%
+% Inputs
+%   f - function handle to the integrand
+%   xmin - lower bound of the integral
+%   xmax - upper bound of the integral
+%
+% Output
+%   v - value of the integral
+
+v = 0.5 * (xmax-xmin) * (f(xmin)+f(xmax));
+end
+
+function v=myCtrapz(f, xmin, xmax,n)
+% This function approximates the integral 
+%     \int_{xmin}^{xmax} f(x) dx 
+%   using the composite trapezoidal rule by dividing the interval
+%   into n subintervals
+%
+% Inputs
+%   f - function handle to the integrand
+%   xmin - lower bound of the integral
+%   xmax - upper bound of the integral
+%   n - number of subintervals
+%
+% Output
+%   v - value of the integral
+
+% collect the points in between all of the intervals
+pts = linspace(xmin, xmax, n+1);
+
+% create a 2xn matrix of the intervals
+%   the first row is all xmin values
+%   the second row is all xmax values
+intervals = [pts(1:n); pts(2:n+1)];
+
+% iteratively call myTrapz with indexes 1:n of intervals and sum them
+v = sum(arrayfun( @(x) myTrapz( f,intervals(1,x),intervals(2,x)) , linspace(1,n,n) ));
+end
+
+function v=mySimps(f, xmin, xmax)
+% This function approximates the integral 
+%     \int_{xmin}^{xmax} f(x) dx 
+%   using Simpson's rule
+%
+% Inputs
+%   f - function handle to the integrand
+%   xmin - lower bound of the integral
+%   xmax - upper bound of the integral
+%
+% Output
+%   v - value of the integral
+
+m = 0.5 * (xmin + xmax);
+v = (1/6) * (xmax-xmin) * (f(xmin)+(4*f(m))+f(xmax));
+end
+
+function v=myCsimps(f, xmin, xmax,n)
+% This function approximates the integral 
+%     \int_{xmin}^{xmax} f(x) dx 
+%   using the composite Simpson's rule by dividing the interval
+%   into n subintervals
+%
+% Inputs
+%   f - function handle to the integrand
+%   xmin - lower bound of the integral
+%   xmax - upper bound of the integral
+%   n - number of subintervals
+%
+% Output
+%   v - value of the integral
+
+% collect the points in between all of the intervals
+pts = linspace(xmin, xmax, n+1);
+
+% create a 2xn matrix of the intervals
+%   the first row is all xmin values
+%   the second row is all xmax values
+intervals = [pts(1:n); pts(2:n+1)];
+
+% iteratively call mySimps with indexes 1:n of intervals and sum them
+v = sum(arrayfun( @(x) mySimps( f,intervals(1,x),intervals(2,x)) , linspace(1,n,n) ));
+end
+
+function [coeffs] = Lagrange(n)
+% From previous assignment: 
+% This function finds the Lagrange interpolating polynomial coefficients
+%     for Runge's example on the interval [-1,1]
+%     using the Vandermonde matrix, V
+%
+% Inputs:
+%   n      - The number of equidistant points in the interval [-1,1]
+%
+% Output:
+%   coeffs - The coefficients of the Vandermonde interpolating polynomial. 
+%            The polynomial is given by the sum of coeffs(i) * x^(i-1), i=1,2,...,n
+x = [-(n-1)/2:(n-1)/2]'./((n-1)/2);
+V=ones(n,1);
+for i=1:(n-1)
+    V = horzcat(V,x.^i);
+end
+f=(((x.^2).*25).+1).^-1;
+coeffs = linsolve(V,f);
+end
+
+function [y] = Interp(n,x)
+% From the previous assignment:
+% Provides the value of the interpolating polynomial for n points at at value x
+f = zeros(n,1);
+for i = 1:length(f)
+    f(i) = x^(i-1);
+end
+y = dot(Lagrange(n),f);
+end
+
+function [y] = Runge(x)
+% Runge's example at x
+y = 1/(1+25*(x^2));
+end
+
+function [y] = RungeLagrangeDiff(n, x)
+% Absolute difference betweeen Runge's example and the Lagrange interpolating 
+%   polynomial for n points at x
+y = abs(Runge(x) - Interp(n, x));
+end
+

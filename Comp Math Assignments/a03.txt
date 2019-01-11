@@ -1,0 +1,49 @@
+function [coeffs] = Lagrange(n)
+%
+% This function finds the Lagrange interpolating polynomial coefficients
+%     for Runge's example on the interval [-1,1]
+%     using the Vandermonde matrix, V
+%
+% Inputs:
+%   n      - The number of equidistant points in the interval [-1,1]
+%
+% Output:
+%   coeffs - The coefficients of the Vandermonde interpolating polynomial. 
+%            The polynomial is given by the sum of coeffs(i) * x^(i-1), i=1,2,...,n
+%
+x = [-(n-1)/2:(n-1)/2]'./((n-1)/2);
+V=ones(n,1);
+for i=1:(n-1)
+    V = horzcat(V,x.^i);
+end
+f=(((x.^2).*25).+1).^-1;
+coeffs = linsolve(V,f);
+end
+
+[coeffs]=Lagrange(3)
+[coeffs]=Lagrange(5)
+[coeffs]=Lagrange(7)
+[coeffs]=Lagrange(9)
+[coeffs]=Lagrange(11)
+[coeffs]=Lagrange(15)
+
+
+function [y] = Interp(n,x)
+f = zeros(n,1);
+for i = 1:length(f)
+    f(i) = x^(i-1);
+end
+y = dot(Lagrange(n),f);
+end
+
+a = -1:(2/99):1;
+y3 = arrayfun( @(x) Interp(3, x), a);
+y5 = arrayfun( @(x) Interp(5, x), a);
+y7 = arrayfun( @(x) Interp(7, x), a);
+y9 = arrayfun( @(x) Interp(9, x), a);
+y11 = arrayfun( @(x) Interp(11, x), a);
+y15 = arrayfun( @(x) Interp(15, x), a);
+y = arrayfun( @(x) 1/(1+25*(x^2)), a);
+
+plot(x,y3,x,y5,x,y7,x,y9,x,y11,x,y15,x,y)
+legend('y3','y5','y7','y9','y11','y15','y')

@@ -1,0 +1,70 @@
+function v=myGaussLegendre(f, xmin, xmax, d)
+% This function approximates the integral
+%     \int_{xmin}^{xmax} f(x)dx
+%   using the Gauss-Legendre rule
+%
+% Inputs
+%   f - function handle to integrand
+%   xmin - lower bound of the integral
+%   xmax - upper bound of the integral
+%   d - number of points to use in interval
+%
+% Output
+%   v - value of the integral
+
+% points xi
+X = [[0,0,0,0];
+     [-0.57735,0.57735,0,0];
+     [0,-0.774597,0.774597,0];
+     [-0.339981,0.339981,-0.861136,0.861136]](d,1:d);
+
+% weights wi
+W = [[2,0,0,0];
+     [1,1,0,0];
+     [0.888889,0.555556,0.555556,0];
+     [0.652145,0.652145,0.861136,0.861136]](d,1:d);
+
+%map the interval [a,b] to [-1,1]
+M = (xmin+xmax)/2;
+L = (xmax-xmin)/2;
+X = X.*L + ones(1,d).*M;
+W = W.*L;
+
+% get the new function values and weights
+vals = arrayfun(f, X);
+
+% apply weights
+v = dot(vals, W);
+end
+
+function v=myCgausslegendre(f, xmin, xmax, d, n)
+% This function approximates the integral
+%     \int_{xmin}^{xmax} f(x)dx
+%   using the compposite Gauss-Legendre rule by dividing the interval
+%   into nm subintervals
+%
+% Inputs
+%   f - function handle to integrand
+%   xmin - lower bound of the integral
+%   xmax - upper bound of the integral
+%   d - number of points to use in interval
+%   n - number of subintervals
+%
+% Output
+%   v - value of the integral
+
+% collect the points in between all of the intervals
+pts = linspace(xmin, xmax, n+1);
+
+% create a 2xn matrix of the intervals
+%   the first row is all xmin values
+%   the second row is all xmax values
+intervals = [pts(1:n); pts(2:n+1)];
+
+% iteratively call myGaussLegendre with indexes 1:n of intervals 
+%   and sum them
+v = sum(arrayfun( @(x)myGaussLegendre(f,intervals(1,x),intervals(2,x),d), 
+                  linspace(1,n,n) ));
+end
+
+%myCgausslegendre(@(x)(e^x)*cos(x), 0, 10, d, n)

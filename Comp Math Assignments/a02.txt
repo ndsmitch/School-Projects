@@ -1,0 +1,206 @@
+
+
+
+Q 2 )
+
+
+
+function [x,v] = bisection(f,a,b)
+%
+% This code finds zero of a function using bisection method.
+%
+% Inputs
+%     f - function handle to the function
+%     a - beginning of interval
+%     b - end of interval
+%
+% Note: This code assumes that a<b and f(a)*f(b)<0.
+%
+% Outputs
+%     x - zero of the function
+%     v - the function evaluated at x, ideally it should be equal to zero.
+%
+% set the termination conditions for result tolerance and iteration limits
+%
+tol = 0.00000001;
+iterations = 4000;
+%
+% make the interval dynamic
+%
+lower_bound = a;
+upper_bound = b;
+%
+% check if f(b) is within tolerance as the assumption was only that it is non zero
+% set f(a) to be the first value checked
+%
+if abs(f(b)) <= tol
+     x = b;
+else
+     x = a;
+end
+v = f(x);
+%
+% check for termination conditions
+% replace appropriate boundary and continue iteration
+% x and v are updated until termination
+%
+while iterations > 0 
+     if abs(v) > tol
+          x =  (lower_bound + upper_bound)./2;
+          v = f(x);
+          if f(lower_bound).*f(x) < 0
+               upper_bound = x;
+          elseif f(lower_bound).*f(x) > 0
+               lower_bound = x;
+          end
+     end
+     iterations = iterations - 1;
+end
+end
+
+
+
+function [x,v] = myfpi(f,x0)
+%
+% This code finds zero of a function using fixed point iteration. f must be the
+% reformulated form of original problem into a fixed point problem.
+% e.g. If we are looking for zeros of g(x)= x^2-2x+1, (an example) f(x)=(x^2+1)/2.
+%
+% Inputs
+%     f - function handle to the function
+%     x0- initial guess1
+%
+% Outputs
+%     x - zero of the function
+%     v - the function evaluated at x, ideally it should be equal to zero.
+%
+% set the termination conditions for result tolerance and iteration limits
+%
+tol = 0.00000001;
+iterations = 4000;
+x=x0;
+v = f(x);
+%
+% check for termination conditions
+% x and v are updated until termination
+%
+while iterations > 0 
+     if abs(v) > tol
+          x =  x - v;
+          v = f(x);
+     end
+     iterations = iterations - 1;
+end
+end
+
+
+
+function [x,v] = myNewton(f,df,x0)
+%
+% This code finds zero of a function using Newton's Method.
+%
+% Inputs
+%     f - function handle to the function
+%     df- function handle to the derivative of the function
+%     x0- initial guess
+%
+% Outputs
+%     x - zero of the function
+%     v - the function evaluated at x, ideally it should be equal to 0.
+%
+% set the termination conditions for result tolerance and iteration limits
+%
+tol = 0.00000001;
+iterations = 4000;
+x=x0;
+v = f(x);
+dv = df(x);
+%
+% check for termination conditions
+% x and v are updated until termination
+%
+while iterations > 0 
+     if abs(v./dv) > tol
+          x =  x - v./dv;
+          v = f(x);
+          dv = df(x);
+     end
+     iterations = iterations - 1;
+end
+end
+
+
+
+function [x,v] = mySecant(f,x0,x1)
+%
+% This code finds zero of a function using Newton's Method.
+%
+% Inputs
+%     f - function handle to the function
+%     x0- initial guess 0
+%     x1- initial guess 1
+%
+% Outputs
+%     x - zero of the function
+%     v - the function evaluated at x, ideally it should be equal to 0.
+%
+% set the termination conditions for result tolerance and iteration limits
+%
+tol = 0.00000001;
+iterations = 4000;
+x_=x0;
+x=x1;
+v = f(x);
+dv = (f(x)-f(x_))./(x-x_);
+%
+% check for termination conditions
+% x and v are updated until termination
+%
+while iterations > 0 
+     if abs(v./dv) > tol
+          x_ = x;
+          x =  x - v./dv;
+          v = f(x);
+          dv = (f(x)-f(x_))./(x-x_);
+     end
+     iterations = iterations - 1;
+end
+end
+
+
+
+Q 3 a ) 
+
+
+
+[x,v]=bisection(@(x)x.*(exp(x)-cos(x)),-pi./2,-pi./4)
+x = -1.2927
+v =    2.1438e-09
+
+
+
+[x,v]=myfpi(@(x)x.*(exp(x)-cos(x)),-1)
+x = -1.2927
+v =    7.3057e-09
+
+
+
+[x,v]=myNewton(@(x)x.*(exp(x)-cos(x)),@(x)(exp(x).*(1+x) + x.*sin(x) -cos(x)),-1)
+x = -1.2927
+v =   -1.1555e-10
+
+
+
+[x,v]=mySecant(@(x)x.*(exp(x)-cos(x)),-1,-1.1)
+x = -1.2927
+v =    2.7150e-10
+
+
+
+Q 3 b )
+
+
+
+[x,v]=myfpi(@(x)(sin(2.*x)-(9.81./20)),0.5)
+x =  0.25633
+v =    8.1745e-09
